@@ -58,6 +58,10 @@ const SimpleInput = (props) => {
     ? "form-control invalid"
     : "form-control ";
 
+  const emailInputClasses = emailInputIsInvalid
+    ? "form-control invalid"
+    : "form-control ";
+
   return (
     <form onSubmit={formSubmissionHandler}>
       <div className={nameInputClasses}>
@@ -74,7 +78,7 @@ const SimpleInput = (props) => {
         )}
       </div>
 
-      <div className={nameInputClasses}>
+      <div className={emailInputClasses}>
         <label htmlFor="email">Your Email</label>
         <input
           type="email"
