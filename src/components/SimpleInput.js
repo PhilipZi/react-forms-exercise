@@ -7,8 +7,8 @@ const SimpleInput = (props) => {
   const [enteredEmailTouched, setEnteredEmailTouched] = useState(false);
 
   const enteredNameIsValid = enteredName.trim() !== "";
-  const enteredEmailIsValid =
-    enteredEmail.trim() !== "" && enteredEmail.includes("@");
+  const enteredEmailIsValid = enteredEmail.includes("@");
+
   const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
   const emailInputIsInvalid = !enteredEmailIsValid && enteredEmailTouched;
 
@@ -20,20 +20,20 @@ const SimpleInput = (props) => {
     formIsValid = false;
   }
 
-  function emailInputChangeHanlder(event) {
-    setEnteredEmail(event.target.value);
-  }
-
-  function emailInputBlurHandler(event) {
-    setEnteredEmailTouched(true);
-  }
-
   function nameInputChangeHandler(event) {
     setEnteredName(event.target.value);
   }
 
+  function emailInputChangeHandlder(event) {
+    setEnteredEmail(event.target.value);
+  }
+
   function nameInputBlurHandler(event) {
     setEnteredNameTouched(true);
+  }
+
+  function emailInputBlurHandler(event) {
+    setEnteredEmailTouched(true);
   }
 
   function formSubmissionHandler(event) {
@@ -48,10 +48,10 @@ const SimpleInput = (props) => {
 
     console.log(enteredName, enteredEmail);
 
-    setEnteredEmail("");
-    setEnteredEmailTouched(false);
     setEnteredName("");
     setEnteredNameTouched(false);
+    setEnteredEmail("");
+    setEnteredEmailTouched(false);
   }
 
   const nameInputClasses = nameInputIsInvalid
@@ -83,14 +83,12 @@ const SimpleInput = (props) => {
         <input
           type="email"
           id="email"
-          onChange={emailInputChangeHanlder}
+          onChange={emailInputChangeHandlder}
           onBlur={emailInputBlurHandler}
           value={enteredEmail}
         />
         {emailInputIsInvalid && (
-          <p className="error-text">
-            Email must not be empty or have an @ sign
-          </p>
+          <p className="error-text">Please enter a valid e-mail.</p>
         )}
       </div>
       <div className="form-actions">
