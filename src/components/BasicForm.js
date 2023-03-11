@@ -1,22 +1,112 @@
+import useInput from "../hooks/use-input";
+
 const BasicForm = (props) => {
+  const {
+    value: enteredName,
+    isValid: enteredNameIsValid,
+    hasError: enteredNameHasError,
+    valueInputChangeHandler: nameInputChangeHandler,
+    inputBlurHandler: nameInputIsTouched,
+    reset: resetNameInput,
+  } = useInput((value) => value.trim() !== "");
+
+  const {
+    value: enteredLastName,
+    isValid: enteredLastNameIsValid,
+    hasError: enteredLastNameHasError,
+    valueInputChangeHandler: lastnameInputChangeHandler,
+    inputBlurHandler: lastnameInputIsTouched,
+    reset: resetLastNameInput,
+  } = useInput((value) => value.trim() !== "");
+
+  const {
+    value: enteredEmail,
+    isValid: enteredEmailIsValid,
+    hasError: enteredEmailHasError,
+    valueInputChangeHandler: emailInputChangeHandler,
+    inputBlurHandler: emailInputIsTouched,
+    reset: resetEmailInput,
+  } = useInput((value) => value.includes("@"));
+
+  let formIsValid = false;
+
+  if (enteredNameIsValid && enteredLastNameIsValid && enteredEmailIsValid) {
+    formIsValid = true;
+  }
+
+  function submitHandler(event) {
+    event.preventDefault();
+
+    if (
+      enteredNameHasError &&
+      enteredLastNameHasError &&
+      enteredEmailHasError
+    ) {
+      return;
+    }
+    console.log(enteredName, enteredLastName);
+    resetNameInput();
+    resetLastNameInput();
+    resetEmailInput();
+  }
+
+  const nameInputClasses = enteredNameHasError
+    ? "form-control invalid"
+    : "form-control";
+
+  const lastNameInputClasses = enteredLastNameHasError
+    ? "form-control invalid"
+    : "form-control";
+
+  const emailInputClasses = enteredEmailHasError
+    ? "form-control invalid"
+    : "form-control";
+
   return (
-    <form>
-      <div className='control-group'>
-        <div className='form-control'>
-          <label htmlFor='name'>First Name</label>
-          <input type='text' id='name' />
+    <form onSubmit={submitHandler}>
+      <div className="control-group">
+        <div className={nameInputClasses}>
+          <label htmlFor="name">First Name</label>
+          <input
+            type="text"
+            id="name"
+            onChange={nameInputChangeHandler}
+            onBlur={nameInputIsTouched}
+            value={enteredName}
+          />
+          {enteredNameHasError && (
+            <p className="error-text">enter valid name</p>
+          )}
         </div>
-        <div className='form-control'>
-          <label htmlFor='name'>Last Name</label>
-          <input type='text' id='name' />
+        <div className={lastNameInputClasses}>
+          <label htmlFor="lname">Last Name</label>
+          <input
+            type="text"
+            id="lname"
+            onChange={lastnameInputChangeHandler}
+            onBlur={lastnameInputIsTouched}
+            value={enteredLastName}
+          />
+          {enteredLastNameHasError && (
+            <p className="error-text">enter valid last name</p>
+          )}
         </div>
       </div>
-      <div className='form-control'>
-        <label htmlFor='name'>E-Mail Address</label>
-        <input type='text' id='name' />
+      <div className={emailInputClasses}>
+        <label htmlFor="email">E-Mail Address</label>
+        <input
+          type="email"
+          id="email"
+          onChange={emailInputChangeHandler}
+          onBlur={emailInputIsTouched}
+          value={enteredEmail}
+        />
+        {enteredEmailHasError && (
+          <p className="error-text">enter valid email</p>
+        )}
       </div>
-      <div className='form-actions'>
-        <button>Submit</button>
+      <div className="form-actions">
+        <button disabled={!formIsValid}>Submit</button>
       </div>
     </form>
   );
