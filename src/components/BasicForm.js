@@ -37,14 +37,10 @@ const BasicForm = (props) => {
   function submitHandler(event) {
     event.preventDefault();
 
-    if (
-      enteredNameHasError &&
-      enteredLastNameHasError &&
-      enteredEmailHasError
-    ) {
+    if (!formIsValid) {
       return;
     }
-    console.log(enteredName, enteredLastName);
+    console.log(enteredName, enteredLastName, enteredEmail);
     resetNameInput();
     resetLastNameInput();
     resetEmailInput();
