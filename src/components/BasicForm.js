@@ -6,7 +6,7 @@ const BasicForm = (props) => {
     isValid: enteredNameIsValid,
     hasError: enteredNameHasError,
     valueInputChangeHandler: nameInputChangeHandler,
-    inputBlurHandler: nameInputIsTouched,
+    inputBlurHandler: nameBlurHandler,
     reset: resetNameInput,
   } = useInput((value) => value.trim() !== "");
 
@@ -15,7 +15,7 @@ const BasicForm = (props) => {
     isValid: enteredLastNameIsValid,
     hasError: enteredLastNameHasError,
     valueInputChangeHandler: lastnameInputChangeHandler,
-    inputBlurHandler: lastnameInputIsTouched,
+    inputBlurHandler: lastNameBlurHandler,
     reset: resetLastNameInput,
   } = useInput((value) => value.trim() !== "");
 
@@ -24,7 +24,7 @@ const BasicForm = (props) => {
     isValid: enteredEmailIsValid,
     hasError: enteredEmailHasError,
     valueInputChangeHandler: emailInputChangeHandler,
-    inputBlurHandler: emailInputIsTouched,
+    inputBlurHandler: emailBlurHandler,
     reset: resetEmailInput,
   } = useInput((value) => value.includes("@"));
 
@@ -71,7 +71,7 @@ const BasicForm = (props) => {
             type="text"
             id="name"
             onChange={nameInputChangeHandler}
-            onBlur={nameInputIsTouched}
+            onBlur={nameBlurHandler}
             value={enteredName}
           />
           {enteredNameHasError && (
@@ -84,7 +84,7 @@ const BasicForm = (props) => {
             type="text"
             id="lname"
             onChange={lastnameInputChangeHandler}
-            onBlur={lastnameInputIsTouched}
+            onBlur={lastNameBlurHandler}
             value={enteredLastName}
           />
           {enteredLastNameHasError && (
@@ -98,7 +98,7 @@ const BasicForm = (props) => {
           type="email"
           id="email"
           onChange={emailInputChangeHandler}
-          onBlur={emailInputIsTouched}
+          onBlur={emailBlurHandler}
           value={enteredEmail}
         />
         {enteredEmailHasError && (
